@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -49,8 +49,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-f6-d2N" customClass="CachedImageView" customModule="WeatherApp" customModuleProvider="target">
-                                <rect key="frame" x="88.5" y="84" width="197" height="197"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-f6-d2N" customClass="CachedImageView" customModule="WeatherApp" customModuleProvider="target">
+                                <rect key="frame" x="109.5" y="126" width="155" height="155"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3ep-f6-d2N" secondAttribute="height" multiplier="1:1" id="fR4-8i-CzB"/>
                                 </constraints>
@@ -58,7 +58,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1530902236700058" green="0.15292418003082275" blue="0.16090135276317596" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="3ep-f6-d2N" firstAttribute="top" secondItem="jmy-gy-D06" secondAttribute="bottom" constant="8" id="Cpv-DX-XLo"/>
+                            <constraint firstItem="3ep-f6-d2N" firstAttribute="top" secondItem="jmy-gy-D06" secondAttribute="bottom" constant="50" id="Cpv-DX-XLo"/>
                             <constraint firstItem="3ep-f6-d2N" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="K12-6t-4R1"/>
                             <constraint firstItem="B8K-HL-7GZ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="RPK-VL-r0J"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jmy-gy-D06" secondAttribute="trailing" constant="16" id="cFx-iP-lKz"/>

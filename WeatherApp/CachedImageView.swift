@@ -20,10 +20,11 @@ class CachedImageView: UIImageView {
         } else {
             DispatchQueue.main.async {
                 URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-                    
+                    print(url.absoluteString)
                     guard let strongSelf = self else { return }
                     
-                    guard error != nil,
+                    print("WTF")
+                    guard error == nil,
                         let data = data,
                         let downloadedImage = UIImage(data: data) else {
                         // TODO: Handle this in future.
@@ -31,6 +32,7 @@ class CachedImageView: UIImageView {
                         // Can be separated in separate guard statements for more precise error handling
                         return
                     }
+                    print("IT EXISTS THO")
                     
                     strongSelf.cache.setObject(downloadedImage, forKey: urlString)
                     OperationQueue.main.addOperation {

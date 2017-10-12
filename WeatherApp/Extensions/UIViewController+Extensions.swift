@@ -17,4 +17,13 @@ extension UIViewController {
             self?.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func alert(_ message: String) {
+        OperationQueue.main.addOperation { [weak self] in
+            let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(ok)
+            self?.present(alert, animated: true, completion: nil)
+        }
+    }
 }

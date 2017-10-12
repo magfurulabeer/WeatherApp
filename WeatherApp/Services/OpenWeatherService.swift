@@ -13,42 +13,15 @@ enum DataError: Error {
     case missingData
 }
 
-struct OpenWeatherService {
-    let scheme = "https"
-    let host = "api.openweathermap.org"
-    
-    enum Endpoint {
-        case retrieveWeather(String)
-        case retrieveIcon(String)
+
+// Normally I would abstract the networking layer to something similar to Moya
+struct OpenWeatherService {    
+    public func retrieveWeather(query: String, _ completionHandler: @escaping (Weather?, Error?) -> Void) {
         
-        // Normally I would differentiate the HTTP Methods but for the scope of this project, it's safe to assume it's always GET
-        // public var method
-        
-        public var path: String {
-            switch self {
-            case .retrieveWeather:
-                return "/data/2.5/weather"
-            case .retrieveIcon(let icon):
-                return "/img/w/\(icon)"
-            }
-        }
-        
-        public var parameters: [String: Any] {
-            switch self {
-            case .retrieveWeather(let query):
-                return ["APPID": Constants.openWeatherAppId, "q": query]
-            case .retrieveIcon(_):
-                return [:]
-            }
-        }
-    }
-    
-    func request(endpoint: Endpoint, _ completionHandler: @escaping (AnyObject?, Error?) -> Void) {
-        guard let url = generateUrl(path: endpoint.path, params: endpoint.parameters) else {
+        guard let url = generateUrl(params: ["q": query]) else {
             completionHandler(nil, DataError.invalidUrl)
             return
         }
-        
         
         URLSession(configuration: .default).dataTask(with: url) { data, response, error in
             
@@ -62,7 +35,6 @@ struct OpenWeatherService {
                 return
             }
             
-            completionHandler
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 let weather = try Weather(data: json ?? [:])
@@ -72,15 +44,29 @@ struct OpenWeatherService {
             }
             
             return
-            }.resume()
+        }.resume()
     }
     
-    func generateUrl(path: String, params: [String: Any] = [:]) -> URL? {
+    private func urlComponents() -> URLComponents {
         var components = URLComponents()
-        components.scheme = self.scheme
-        components.host = self.host
-        components.path = path
-        components.queryItems = params.map { URLQueryItem(name: $0, value: $1 as? String) }
+        components.scheme = "https"
+        components.host = "api.openweathermap.org"
+        return components
+    }
+    
+    private func generateUrl(params: [String: String] = [:]) -> URL? {
+        var components = self.urlComponents()
+        components.path = "/data/2.5/weather"
+        components.queryItems = params.map { URLQueryItem(name: $0, value: $1) }
+        components.queryItems?.append(URLQueryItem(name: "APPID", value: Constants.openWeatherAppId))
+        return components.url
+    }
+    
+    public func iconUrl(icon: String) -> URL? {
+        var components = self.urlComponents()
+        components.path = "img/w/\(icon)"
+        print(components.path)
+        return URL(string: "https://api.openweathermap.org/img/w/03d")
         return components.url
     }
 }

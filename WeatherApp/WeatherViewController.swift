@@ -20,9 +20,11 @@ class WeatherViewController: UIViewController {
         }
     }
     
+    let openWeatherService = OpenWeatherService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        weather = nil // TODO: Set it to last weather
+//        weather = nil // TODO: Set it to last weather
         locationTextField.delegate = self
     }
     
@@ -31,7 +33,10 @@ class WeatherViewController: UIViewController {
             guard let strongSelf = self else { return }
             strongSelf.locationTextField.text = strongSelf.weather?.name ?? "Error"
             strongSelf.temperatureLabel.text = strongSelf.weather != nil ? "\(strongSelf.weather!.temperature)° C" : "😱"
-            strongSelf.iconImageView.setImage(url: <#T##URL#>)
+            if let weather = strongSelf.weather {
+                let iconUrl = strongSelf.openWeatherService.iconUrl(icon: weather.icon)
+                strongSelf.iconImageView.setImage(url: iconUrl!)
+            }
         }
     }
 }
@@ -39,13 +44,16 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let query = textField.text ?? ""
-        OpenWeatherService().retrieveWeather(query: query) { [weak self] weather, error in
+        openWeatherService.retrieveWeather(query: query) { [weak self] weather, error in
+            guard let strongSelf = self else { return }
+            
             guard error == nil else {
-                self?.alert(error!)
+                strongSelf.alert(error!)
                 return
             }
             
-            self?.weather = weather
+            // If it's nil, it will display the error messages
+            strongSelf.weather = weather
         }
 
         locationTextField.resignFirstResponder()
