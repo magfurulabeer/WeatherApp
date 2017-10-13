@@ -13,8 +13,7 @@ enum DataError: Error {
     case missingData
 }
 
-
-// Normally I would abstract the networking layer to something similar to Moya
+// Normally I would abstract the networking layer to something similar to Moya but it seemed severely unnecessarily for the scope of this project
 struct OpenWeatherService {    
     public func retrieveWeather(query: String, _ completionHandler: @escaping (Weather?, Error?) -> Void) {
         
@@ -64,9 +63,8 @@ struct OpenWeatherService {
     
     public func iconUrl(icon: String) -> URL? {
         var components = self.urlComponents()
-        components.path = "img/w/\(icon)"
+        components.path = "/img/w/\(icon)"
         print(components.path)
-        return URL(string: "https://api.openweathermap.org/img/w/03d")
         return components.url
     }
 }

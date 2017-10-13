@@ -24,7 +24,7 @@ class WeatherViewController: UIViewController {
     }
     
     let openWeatherService = OpenWeatherService()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //        weather = nil // TODO: Set it to last weather
