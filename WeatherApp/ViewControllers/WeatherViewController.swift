@@ -13,6 +13,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var iconImageView: CachedImageView!
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     var weather: Weather? {
         didSet {
@@ -32,7 +35,12 @@ class WeatherViewController: UIViewController {
         OperationQueue.main.addOperation { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.locationTextField.text = strongSelf.weather?.name ?? "Error"
+            // TODO: Add ability to change from K to C to F
+            // TODO: Refactor this all
             strongSelf.temperatureLabel.text = strongSelf.weather != nil ? "\(strongSelf.weather!.temperature)° C" : "😱"
+            strongSelf.humidityLabel.text = strongSelf.weather != nil ? "\(strongSelf.weather!.humidity)%" : "n/a"
+            strongSelf.pressureLabel.text = strongSelf.weather != nil ? "\(strongSelf.weather!.pressure)in" : "n/a"
+            strongSelf.descriptionLabel.text = strongSelf.weather?.description ?? ""
             if let weather = strongSelf.weather {
                 let iconUrl = strongSelf.openWeatherService.iconUrl(icon: weather.icon)
                 strongSelf.iconImageView.setImage(url: iconUrl!)

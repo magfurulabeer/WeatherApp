@@ -70,10 +70,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23809AF01F912000002DECAC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				23FF420E1F8FEA3C006629C8 /* CachedImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		23FF41CE1F8FA10D006629C8 = {
 			isa = PBXGroup;
 			children = (
 				23FF41D91F8FA10D006629C8 /* WeatherApp */,
+				23FF41E61F8FA10D006629C8 /* Info.plist */,
 				23FF41EE1F8FA10E006629C8 /* WeatherAppTests */,
 				23FF41D81F8FA10D006629C8 /* Products */,
 			);
@@ -95,12 +104,9 @@
 				23FF42031F8FB973006629C8 /* Models */,
 				23FF41FD1F8FAAB5006629C8 /* Misc */,
 				23FF41FE1F8FAAF3006629C8 /* Services */,
-				23FF42041F8FB984006629C8 /* Views */,
-				23FF42051F8FB989006629C8 /* ViewModels */,
-				23FF41E61F8FA10D006629C8 /* Info.plist */,
-				23FF41FA1F8FA42B006629C8 /* WeatherViewController.swift */,
+				23809AF01F912000002DECAC /* Views */,
+				23FF42041F8FB984006629C8 /* ViewControllers */,
 				23FF41FC1F8FAA9D006629C8 /* Storyboards */,
-				23FF420E1F8FEA3C006629C8 /* CachedImageView.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -151,18 +157,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		23FF42041F8FB984006629C8 /* Views */ = {
+		23FF42041F8FB984006629C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				23FF41FA1F8FA42B006629C8 /* WeatherViewController.swift */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		23FF42051F8FB989006629C8 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		23FF42061F8FC0B2006629C8 /* Extensions */ = {
@@ -439,7 +439,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P59PPQ2LZ6;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magfurulabeer.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -454,7 +454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P59PPQ2LZ6;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magfurulabeer.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
