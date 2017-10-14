@@ -26,4 +26,9 @@ extension UIViewController {
             self?.present(alert, animated: true, completion: nil)
         }
     }
+    
+    @objc
+    public func hideKeyboard() {
+        self.isEditing = false
+    }
 }

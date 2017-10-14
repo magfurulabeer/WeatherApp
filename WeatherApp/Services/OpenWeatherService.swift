@@ -6,25 +6,42 @@
 //  Copyright © 2017 Magfurul Abeer. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum DataError: Error {
     case invalidUrl
     case missingData
 }
 
+typealias CompletionHandler = ((Weather?, Error?) -> Void)
+
 // Normally I would abstract the networking layer to something similar to Moya but it seemed severely unnecessarily for the scope of this project
 struct OpenWeatherService {    
-    public func retrieveWeather(query: String, _ completionHandler: @escaping (Weather?, Error?) -> Void) {
+    public func retrieveWeather(query: String, _ completionHandler: @escaping CompletionHandler) {
         
         guard let url = generateUrl(params: ["q": query]) else {
             completionHandler(nil, DataError.invalidUrl)
             return
         }
         
+        requestLocation(url: url, completionHandler)
+    }
+    
+    public func retrieveWeather(latitude: Double, longitude: Double, _ completionHandler: @escaping CompletionHandler) {
+        
+        let params = ["lat": "\(latitude)", "lon": "\(longitude)"]
+        guard let url = generateUrl(params: params) else {
+            completionHandler(nil, DataError.invalidUrl)
+            return
+        }
+        
+        requestLocation(url: url, completionHandler)
+    }
+    
+    private func requestLocation(url: URL, _ completionHandler: @escaping CompletionHandler) {
         URLSession(configuration: .default).dataTask(with: url) { data, response, error in
             
-            guard error == nil else {
+            if let error = error {
                 completionHandler(nil, error)
                 return
             }
@@ -38,12 +55,13 @@ struct OpenWeatherService {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 let weather = try Weather(data: json ?? [:])
                 completionHandler(weather, nil)
+                
             } catch let e {
                 completionHandler(nil, e)
             }
             
             return
-        }.resume()
+            }.resume()
     }
     
     private func urlComponents() -> URLComponents {
@@ -64,7 +82,6 @@ struct OpenWeatherService {
     public func iconUrl(icon: String) -> URL? {
         var components = self.urlComponents()
         components.path = "/img/w/\(icon)"
-        print(components.path)
         return components.url
     }
 }
